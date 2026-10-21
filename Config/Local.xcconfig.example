@@ -1,0 +1,3 @@
+// Copy to Local.xcconfig and fill in your Apple Developer team ID.
+// Xcode > Settings > Accounts shows it, or look in developer.apple.com/account.
+DEVELOPMENT_TEAM = XXXXXXXXXX

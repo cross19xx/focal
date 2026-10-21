@@ -1,0 +1,33 @@
+* text=auto eol=lf
+
+*.swift text diff=swift
+*.m text
+*.mm text
+*.h text
+*.c text
+*.cpp text
+*.metal text
+*.json text
+*.xml text
+*.plist text
+*.md text
+*.entitlements text
+
+*.pbxproj merge=union
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.heic binary
+*.gif binary
+*.mp4 binary
+*.mov binary
+*.pdf binary
+*.zip binary
+*.ipa binary
+
+# Large binaries go through LFS; run "git lfs install" before adding any.
+*.xcframework/** filter=lfs diff=lfs merge=lfs -text
+*.mlpackage/** filter=lfs diff=lfs merge=lfs -text
+*.mlmodel filter=lfs diff=lfs merge=lfs -text
+*.mlmodelc/** filter=lfs diff=lfs merge=lfs -text

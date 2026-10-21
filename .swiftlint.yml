@@ -1,0 +1,64 @@
+included:
+  - Focal
+  - FocalTests
+
+excluded:
+  - Focal/Resources
+
+disabled_rules:
+  - line_length
+  - trailing_comma
+  - todo
+  - multiple_closures_with_trailing_closure
+  - nesting
+
+opt_in_rules:
+  - array_init
+  - closure_spacing
+  - contains_over_first_not_nil
+  - discouraged_optional_boolean
+  - empty_count
+  - empty_string
+  - explicit_init
+  - fatal_error_message
+  - first_where
+  - identical_operands
+  - implicitly_unwrapped_optional
+  - last_where
+  - modifier_order
+  - redundant_nil_coalescing
+  - sorted_first_last
+  - toggle_bool
+  - unneeded_parentheses_in_closure_argument
+  - unowned_variable_capture
+  - vertical_whitespace_closing_braces
+  - yoda_condition
+
+identifier_name:
+  min_length: 1
+  max_length: 50
+
+function_body_length:
+  warning: 80
+  error: 150
+
+type_body_length:
+  warning: 300
+  error: 500
+
+cyclomatic_complexity:
+  ignores_case_statements: true
+
+custom_rules:
+  hex_color_literal:
+    name: 'Hex colour literal'
+    regex: '(Color|UIColor)\((hex|red|white|hue):'
+    message: 'Colours are colour sets in Assets.xcassets; use the generated symbol.'
+    severity: warning
+
+  backend_import_in_feature:
+    name: 'Vision backend imported in a feature'
+    included: 'Focal/Features/(Home|Detail|About)/.*\.swift'
+    regex: '^import (Vision|CoreML|Metal|MetalPerformanceShaders|MetalKit|opencv2|ARKit|RealityKit)'
+    message: "Backend code lives in Vision/ or the project's own Demos/ folder."
+    severity: error

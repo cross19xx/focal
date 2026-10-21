@@ -1,0 +1,3 @@
+// Settings shared by every configuration. Per-machine values such as the
+// signing team live in Local.xcconfig, which is gitignored and optional.
+#include? "Local.xcconfig"
