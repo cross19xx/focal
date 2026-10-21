@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct FocalApp: App {
+    private let store = ProjectStore.loadBundled()
+
     var body: some Scene {
         WindowGroup {
             HomeView()
+                .environment(\.projectStore, store)
         }
     }
 }

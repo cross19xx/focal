@@ -63,3 +63,6 @@ fastlane/test_output
 
 # Per-machine signing settings
 Config/Local.xcconfig
+
+# System files
+.DS_Store

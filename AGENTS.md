@@ -39,6 +39,7 @@ struct Project: Identifiable, Codable, Hashable {
     let techniques: [String]  // CV concepts, e.g. "Canny edges", "Homography", "Optical flow"
     let tools: [String]       // what implemented them, e.g. "OpenCV", "Vision", "Core ML", "Metal"
     let sourceURL: URL?       // GitHub link
+    let difficulty: ProjectDifficulty // Using the EAFC ranking system
     let demo: DemoKind?       // which live demo view to launch, if any
 }
 
