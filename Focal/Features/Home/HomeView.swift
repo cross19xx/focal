@@ -13,11 +13,13 @@ struct HomeView: View {
     @AppStorage("layoutStyle") private var layoutStyle: LayoutStyle = .grid
 
     @State private var isAboutPresented = false
+    @State private var path = [DemoKind]()
+    @State private var selectedProject: Project?
 
     private var projects: [Project] { store.projects }
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     Text("\(projects.count) project · Tap to run, long press for details")
@@ -32,15 +34,21 @@ struct HomeView: View {
                     .pickerStyle(.segmented)
 
                     switch layoutStyle {
-                    case .grid: GridLayout(projects: projects)
+                    case .grid: GridLayout(
+                            projects: projects,
+                            onTap: handleTap,
+                            onLongPress: handleLongPress
+                        )
                     case .list: ListLayout()
                     case .timeline: TimelineLayout()
                     }
                 }
                 .padding(.horizontal, 16)
             }
-            .scrollBounceBehavior(.basedOnSize)
             .navigationTitle(String(localized: "Focal"))
+            .navigationDestination(for: DemoKind.self, destination: { demoKind in
+                Text(verbatim: "New Page received \(demoKind)")
+            })
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button { isAboutPresented.toggle() } label: {
@@ -51,7 +59,22 @@ struct HomeView: View {
             .sheet(isPresented: $isAboutPresented) {
                 Text(verbatim: "About some details to be presented")
             }
+            .sheet(item: $selectedProject) { data in
+                Text(data.id)
+            }
         }
+    }
+
+    private func handleTap(_ project: Project) {
+        if let demo = project.demo {
+            path.append(demo)
+        } else {
+            handleLongPress(project)
+        }
+    }
+
+    private func handleLongPress(_ project: Project) {
+        selectedProject = project
     }
 }
 

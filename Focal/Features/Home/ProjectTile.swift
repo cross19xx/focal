@@ -9,6 +9,10 @@ import SwiftUI
 
 struct ProjectTile: View {
     let project: Project
+
+    let onTap: () -> Void
+    let onLongPress: () -> Void
+
     private var caption: String {
         let descriptions: [String?] = [project.techniques.first, project.monthDate]
         return descriptions.compactMap { $0 }.joined(separator: " · ")
@@ -31,6 +35,7 @@ struct ProjectTile: View {
                 .font(.caption2.monospaced())
                 .foregroundStyle(.secondary)
         }
+        .pressGestures(onTap: onTap, onLongPress: onLongPress)
     }
 }
 
@@ -38,12 +43,20 @@ struct ProjectTile: View {
 #Preview("Light", traits: .fixedLayout(width: 180, height: 200)) {
     let project = Project.samples[0]
 
-    ProjectTile(project: project)
+    ProjectTile(
+        project: project,
+        onTap: { print("Pressed") },
+        onLongPress: { print("Long Pressed") }
+    )
 }
 
 #Preview("Dark", traits: .fixedLayout(width: 180, height: 200)) {
     let project = Project.samples[0]
 
-    ProjectTile(project: project).preferredColorScheme(.dark)
+    ProjectTile(
+        project: project,
+        onTap: { print("Pressed") },
+        onLongPress: { print("Long Pressed") }
+    ).preferredColorScheme(.dark)
 }
 #endif

@@ -69,7 +69,7 @@ Dates display as `MMM d, yyyy` in detail and `MMM yyyy` in `grid/timeline`.
 
 ### Long press → Detail (`ProjectDetailSheet`)
 
-- Trigger with `.onLongPressGesture` (≈0.4s) plus haptic (`.sensoryFeedback(.impact(weight: .medium), trigger:)`); the pressed tile scales up slightly with an accent ring before the sheet presents.
+- Trigger with `.onLongPressGesture` (≈0.4s) plus haptic (`.sensoryFeedback(.impact(weight: .medium), trigger:)`); the pressed tile scales up slightly before the sheet presents (the mockup's accent ring was dropped; it didn't track the scale).
 - Present as a `.sheet` with `.presentationDetents([.medium, .large])` and a visible drag indicator.
 - Content, in order: title + date, technique chips, tools line, Description, Inspiration (accent rule on the left, if present), What I learned (if present), then two buttons: **View source** (opens `sourceURL`) and **Run demo** (dismisses the sheet and pushes the demo; hidden when `demo == nil` or when the sheet was opened from the demo itself).
 - The sheet is reading material; it never replaces the demo as the tap destination.
