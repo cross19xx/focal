@@ -14,16 +14,7 @@ struct HomeView: View {
 
     @State private var isAboutPresented = false
 
-    var projects: [Project] { store.projects }
-
-    var temporaryLayoutText: String {
-        // Plain literals to be used inside a view is not localized
-        switch layoutStyle {
-        case .grid: "This is a temporary view for the grid"
-        case .list: "The vertical items. One after the other"
-        case .timeline: "Timeline view. Ordered by the date"
-        }
-    }
+    private var projects: [Project] { store.projects }
 
     var body: some View {
         NavigationStack {
@@ -40,13 +31,11 @@ struct HomeView: View {
                     }
                     .pickerStyle(.segmented)
 
-                    VStack(alignment: .center) {
-                        Text(temporaryLayoutText)
-                            .foregroundStyle(.secondary)
-                            .font(.caption)
-                            .padding(.top, 32)
+                    switch layoutStyle {
+                    case .grid: GridLayout(projects: projects)
+                    case .list: ListLayout()
+                    case .timeline: TimelineLayout()
                     }
-                    .frame(minWidth: 0, maxWidth: .infinity)
                 }
                 .padding(.horizontal, 16)
             }
@@ -67,14 +56,14 @@ struct HomeView: View {
 }
 
 #if DEBUG
-    #Preview("Light") {
-        HomeView()
-            .environment(\.projectStore, ProjectStore(projects: Project.samples))
-    }
+#Preview("Light") {
+    HomeView()
+        .environment(\.projectStore, ProjectStore(projects: Project.samples))
+}
 
-    #Preview("Dark") {
-        HomeView()
-            .preferredColorScheme(.dark)
-            .environment(\.projectStore, ProjectStore(projects: Project.samples))
-    }
+#Preview("Dark") {
+    HomeView()
+        .preferredColorScheme(.dark)
+        .environment(\.projectStore, ProjectStore(projects: Project.samples))
+}
 #endif
