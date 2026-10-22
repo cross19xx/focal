@@ -39,7 +39,11 @@ struct HomeView: View {
                             onTap: handleTap,
                             onLongPress: handleLongPress
                         )
-                    case .list: ListLayout()
+                    case .list: ListLayout(
+                            projects: projects,
+                            onTap: handleTap,
+                            onLongPress: handleLongPress
+                        )
                     case .timeline: TimelineLayout()
                     }
                 }

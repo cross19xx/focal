@@ -8,24 +8,53 @@
 import SwiftUI
 
 struct ListLayout: View {
+    let projects: [Project]
+
+    let onTap: (_ project: Project) -> Void
+    let onLongPress: (_ project: Project) -> Void
+
     var body: some View {
-        VStack(alignment: .center) {
-            Text(verbatim: "The vertical items. One after the other")
-                .foregroundStyle(.secondary)
-                .font(.caption)
-                .padding(.top, 32)
+        LazyVStack(alignment: .leading, spacing: 0) {
+            ForEach(projects) { project in
+                let isLast = project.id == projects.last?.id
+
+                ProjectRow(
+                    project: project,
+                    onTap: { onTap(project) },
+                    onLongPress: { onLongPress(project) }
+                )
+
+                if !isLast { Divider() }
+            }
         }
-        .frame(minWidth: 0, maxWidth: .infinity)
+        .background(.background.secondary)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 }
 
 #if DEBUG
 #Preview("Light", traits: .sizeThatFitsLayout) {
-    ListLayout()
+    let projects = Project.samples
+
+    VStack {
+        ListLayout(
+            projects: projects,
+            onTap: { print($0.title) },
+            onLongPress: { print($0.title) }
+        )
+    }.padding()
 }
 
 #Preview("Dark", traits: .sizeThatFitsLayout) {
-    ListLayout()
+    let projects = Project.samples
+
+    VStack {
+        ListLayout(
+            projects: projects,
+            onTap: { print($0.title) },
+            onLongPress: { print($0.title) }
+        )
         .preferredColorScheme(.dark)
+    }.padding()
 }
 #endif
