@@ -14,6 +14,7 @@ struct HomeView: View {
 
     @State private var isAboutPresented = false
     @State private var path = [DemoKind]()
+    @State private var pendingDemo: DemoKind?
     @State private var selectedProject: Project?
 
     private var projects: [Project] { store.projects }
@@ -36,18 +37,18 @@ struct HomeView: View {
                     switch layoutStyle {
                     case .grid: GridLayout(
                             projects: projects,
-                            onTap: handleTap,
-                            onLongPress: handleLongPress
+                            onTap: viewProjectDemo,
+                            onLongPress: viewProjectDetails
                         )
                     case .list: ListLayout(
                             projects: projects,
-                            onTap: handleTap,
-                            onLongPress: handleLongPress
+                            onTap: viewProjectDemo,
+                            onLongPress: viewProjectDetails
                         )
                     case .timeline: TimelineLayout(
                             projects: projects,
-                            onTap: handleTap,
-                            onLongPress: handleLongPress
+                            onTap: viewProjectDemo,
+                            onLongPress: viewProjectDetails
                         )
                     }
                 }
@@ -67,34 +68,42 @@ struct HomeView: View {
             .sheet(isPresented: $isAboutPresented) {
                 Text(verbatim: "About some details to be presented")
             }
-            .sheet(item: $selectedProject) { data in
-                Text(data.id)
+            .sheet(item: $selectedProject, onDismiss: handleDetailsDismiss) { project in
+                ProjectDetailSheet(project: project) {
+                    pendingDemo = project.demo
+                }
             }
         }
     }
 
-    private func handleTap(_ project: Project) {
+    private func handleDetailsDismiss() {
+        guard let demo = pendingDemo else { return }
+        pendingDemo = nil
+        path.append(demo)
+    }
+
+    private func viewProjectDemo(_ project: Project) {
         if let demo = project.demo {
             path.append(demo)
         } else {
-            handleLongPress(project)
+            viewProjectDetails(project)
         }
     }
 
-    private func handleLongPress(_ project: Project) {
+    private func viewProjectDetails(_ project: Project) {
         selectedProject = project
     }
 }
 
 #if DEBUG
-#Preview("Light") {
-    HomeView()
-        .environment(\.projectStore, ProjectStore(projects: Project.samples))
-}
+    #Preview("Light") {
+        HomeView()
+            .environment(\.projectStore, ProjectStore(projects: Project.samples))
+    }
 
-#Preview("Dark") {
-    HomeView()
-        .preferredColorScheme(.dark)
-        .environment(\.projectStore, ProjectStore(projects: Project.samples))
-}
+    #Preview("Dark") {
+        HomeView()
+            .preferredColorScheme(.dark)
+            .environment(\.projectStore, ProjectStore(projects: Project.samples))
+    }
 #endif
