@@ -44,7 +44,11 @@ struct HomeView: View {
                             onTap: handleTap,
                             onLongPress: handleLongPress
                         )
-                    case .timeline: TimelineLayout()
+                    case .timeline: TimelineLayout(
+                            projects: projects,
+                            onTap: handleTap,
+                            onLongPress: handleLongPress
+                        )
                     }
                 }
                 .padding(.horizontal, 16)
