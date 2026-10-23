@@ -12,6 +12,8 @@ enum LayoutStyle: String, CaseIterable, Identifiable {
     case list
     case timeline
 
+    static let storageKey = "layoutStyle"
+
     var id: Self { self }
 }
 

@@ -14,8 +14,7 @@ struct TimelineCard: View {
     let onLongPress: () -> Void
 
     private var caption: String {
-        let timelineDate = project.date.formatted(.dateTime.month(.abbreviated).day())
-        let captionValues = [timelineDate, project.techniques.first].compactMap { $0 }
+        let captionValues = [project.dayDate, project.techniques.first].compactMap { $0 }
 
         return captionValues.joined(separator: " · ")
     }

@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @Environment(\.projectStore) private var store
 
-    @AppStorage("layoutStyle") private var layoutStyle: LayoutStyle = .grid
+    @AppStorage(LayoutStyle.storageKey) private var layoutStyle: LayoutStyle = .grid
 
     @State private var isAboutPresented = false
     @State private var path = [DemoKind]()

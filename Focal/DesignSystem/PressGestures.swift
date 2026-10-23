@@ -34,7 +34,7 @@ struct PressGestures: ViewModifier {
     }
 }
 
-/// Pressed look for project tiles and rows: a slight scale-up and a single haptic on touch
+/// Pressed look for project tiles and rows: a slight scale-down and a single haptic on touch
 /// down. A `ButtonStyle` rather than gestures so the `ScrollView` keeps its touch-delay
 /// handling and `VoiceOver` sees a button.
 private struct PressedScale: ButtonStyle {

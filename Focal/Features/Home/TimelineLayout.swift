@@ -17,9 +17,7 @@ struct TimelineLayout: View {
 
     private var monthGroups: [MonthGroup] {
         let groupedProjects = Dictionary(grouping: projects) { project in
-            Calendar
-                .current
-                .dateInterval(of: .month, for: project.date)?.start ?? project.date
+            Project.calendar.dateInterval(of: .month, for: project.date)?.start ?? project.date
         }
 
         return groupedProjects.sorted(by: { $0.key > $1.key }).map {
@@ -43,7 +41,7 @@ struct TimelineLayout: View {
                             .strokeBorder(.tertiary, lineWidth: isCurrent ? 0 : 2)
                             .frame(width: markerSize, height: markerSize)
 
-                        Text(group.month.formatted(.dateTime.month(.abbreviated).year()).uppercased())
+                        Text(group.month.formatted(Project.dateStyle.month(.abbreviated).year()).uppercased())
                             .font(.caption.weight(.medium).monospaced())
                             .tracking(0.5)
                             .foregroundStyle(
