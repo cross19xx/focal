@@ -65,9 +65,7 @@ struct HomeView: View {
                     }
                 }
             }
-            .sheet(isPresented: $isAboutPresented) {
-                Text(verbatim: "About some details to be presented")
-            }
+            .sheet(isPresented: $isAboutPresented) { AboutView() }
             .sheet(item: $selectedProject, onDismiss: handleDetailsDismiss) { project in
                 ProjectDetailSheet(project: project) {
                     pendingDemo = project.demo
@@ -96,14 +94,14 @@ struct HomeView: View {
 }
 
 #if DEBUG
-    #Preview("Light") {
-        HomeView()
-            .environment(\.projectStore, ProjectStore(projects: Project.samples))
-    }
+#Preview("Light") {
+    HomeView()
+        .environment(\.projectStore, ProjectStore(projects: Project.samples))
+}
 
-    #Preview("Dark") {
-        HomeView()
-            .preferredColorScheme(.dark)
-            .environment(\.projectStore, ProjectStore(projects: Project.samples))
-    }
+#Preview("Dark") {
+    HomeView()
+        .preferredColorScheme(.dark)
+        .environment(\.projectStore, ProjectStore(projects: Project.samples))
+}
 #endif

@@ -27,14 +27,7 @@ struct ProjectDetailSheet: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                    Button { dismiss() } label: {
-                        Image(systemName: "xmark")
-                            .font(.footnote.weight(.semibold))
-                            .padding(8)
-                    }
-                    .accessibilityLabel("Close")
-                    .buttonStyle(.bordered)
-                    .buttonBorderShape(.circle)
+                    CloseButton()
                 }
 
                 FlowLayout(spacing: 8) {

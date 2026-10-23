@@ -14,10 +14,7 @@ struct DetailSection: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(title.uppercased())
-                .font(.footnote.weight(.semibold))
-                .tracking(0.6)
-                .foregroundStyle(.secondary)
+            SectionLabel(title)
 
             if withLeadingBar {
                 MarkdownText(description)
