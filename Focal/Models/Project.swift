@@ -27,6 +27,21 @@ extension Project {
 
     var thumbnail: String { "thumb-\(id)" }
 
-    var detailDate: String { date.formatted(.dateTime.month(.abbreviated).day().year()) }
-    var monthDate: String { date.formatted(.dateTime.month(.abbreviated).year()) }
+    var detailDate: String { date.formatted(Self.dateStyle.month(.abbreviated).day().year()) }
+    var monthDate: String { date.formatted(Self.dateStyle.month(.abbreviated).year()) }
+    var dayDate: String { date.formatted(Self.dateStyle.month(.abbreviated).day()) }
+
+    /// Dates decode as UTC calendar days, so they are grouped and formatted in UTC as well;
+    /// in the device's zone a date would read as the previous day anywhere west of Greenwich.
+    static let calendar: Calendar = {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        return calendar
+    }()
+
+    static let dateStyle = Date.FormatStyle(
+        locale: Locale(identifier: "en_US_POSIX"),
+        calendar: calendar,
+        timeZone: calendar.timeZone
+    )
 }

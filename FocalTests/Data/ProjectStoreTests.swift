@@ -93,6 +93,20 @@ struct ProjectStoreTests {
         }
     }
 
+    @Test func `markdown fields parse`() throws {
+        let store = try ProjectStore.load()
+
+        for project in store.projects {
+            let fields = [project.description, project.inspiration, project.learned].compactMap { $0 }
+
+            for field in fields {
+                #expect(throws: Never.self, "\(project.id)") {
+                    try AttributedString(inlineMarkdown: field)
+                }
+            }
+        }
+    }
+
     private func entry(
         id: String,
         date: String,

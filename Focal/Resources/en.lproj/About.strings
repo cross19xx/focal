@@ -1,0 +1,10 @@
+/*
+   About.strings
+   Focal
+
+   Created by Kenneth Kwakye-Gyamfi on 23/10/2026.
+
+ */
+"about.what" = "A living portfolio of the computer vision projects I build while learning OpenCV. Each one is a small, self-contained demo that runs on-device. Long press any project to read what it does, when I built it, what inspired it, and the OpenCV techniques behind it.";
+"about.bio" = "Mobile engineer, learning computer vision in public";
+"about.footer" = "© %@ Kenneth Kwakye-Gyamfi · Made in Ghana";
